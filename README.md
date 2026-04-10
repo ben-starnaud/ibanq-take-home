@@ -1,45 +1,53 @@
-# iBanq Notes Backend & Database
+# iBanq Notes: Full-Stack Application (Take Home Project)
 
-This project contains the backend API and PostgreSQL database configuration for the iBanq Notes application. It uses FastAPI for the API, SQLAlchemy as the ORM, and PostgreSQL for persistent storage.
+A web app for managing notes, built with a React frontend, FastAPI backend, and PostgreSQL database.
 
 ## Features
-* CRUD operations for managing notes.
-* Soft-delete functionality via an `is_deleted` flag.
-* Pinned notes functionality (pinned notes are returned first).
-* Automatic database table creation on startup.
-* Pydantic validation for incoming data.
-* Automated testing with Pytest.
+* **Full CRUD Support**: Create, read, update (edit), and delete notes.
+* **Pinned Notes**: Supports pinning important notes to keep them at the top of the list.
+* **Soft Delete**: Uses an `is_deleted` flag in the database for safe data handling.
+* **Search**: Client-side filtering by note title.
+* **Automated Setup**: Fully containerized with Docker and Docker Compose.
 
 ## Prerequisites
 * Docker and Docker Compose installed on your machine.
 
 ## Project Structure
-* `backend/`: Contains the FastAPI application code.
-* `root/`: Contains the environment configuration and Docker orchestration files.
+* `backend/`: FastAPI application, SQLAlchemy ORM models, and service logic.
+* `frontend/`: React application using Tailwind CSS and Axios.
+* `root/`: Docker orchestration and environment configuration.
 
 ## Setup and Installation
 
 1. **Clone the repository and navigate to the root directory.**
-2. **Configure Environment Variables:**
-   Create a `.env` file in the root directory (using `.env.example` as a template). Ensure the `DATABASE_URL` matches the PostgreSQL credentials provided.
-3. **Build and Start the Containers:**
-   Run the following command to build the images and start the services in detached mode:
+2. **Configure Environment Variables**:
+   Create a `.env` file in the root directory (referencing `.env.example`).
+   ```env
+   POSTGRES_USER=your_user
+   POSTGRES_PASSWORD=your_password
+   POSTGRES_DB=ibanq_notes
+   DATABASE_URL=postgresql://your_user:your_password@db:5432/ibanq_notes
+   VITE_API_URL=http://localhost:8000
+   ```
+3. **Build and Start the Containers**:
    ```bash
    docker-compose up --build -d
    ```
-4. **Verify the Services:**
-   * **Backend API:** Accessible at `http://localhost:8000`.
-   * **Interactive API Documentation (Swagger):** `http://localhost:8000/docs`.
+   *Note: The backend includes a healthcheck to ensure it only starts once the PostgreSQL database is ready to accept connections.*
+
+4. **Access the Application**:
+   * **Frontend**: `http://localhost:3000`
+   * **Backend API**: `http://localhost:8000`
+   * **API Documentation (Swagger)**: `http://localhost:8000/docs`
+
+## User Interaction Flow
+* **Home View**: Displays a grid of all notes with search and pin priority.
+* **Workspace View**: Clicking "New Note" or "Edit" shifts the layout to a sidebar list and a main editor area.
+* **Persistence**: Deleting or saving notes updates the PostgreSQL database and refreshes the UI state.
 
 ## Running Tests
-To run the automated test suite inside the backend container, execute:
+To run the automated backend test suite:
 ```bash
 docker-compose exec backend env PYTHONPATH=. pytest
 ```
-These tests verify core functionality such as note creation and retrieval.
-
-## Backend API Endpoints
-* `GET /api/v1/notes/`: Retrieve all non-deleted notes (pinned first).
-* `POST /api/v1/notes/`: Create a new note (requires `title` and `content`).
-* `PATCH /api/v1/notes/{id}`: Update an existing note.
-* `DELETE /api/v1/notes/{id}`: Soft-delete a note.
+These tests verify core requirements such as API correctness and data persistence.

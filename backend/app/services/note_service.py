@@ -9,7 +9,6 @@ class NoteService:
         query = db.query(Note)
         if not include_deleted:
             query = query.filter(Note.is_deleted == False)
-        
         # Show pinned notes first, then by newest created 
         return query.order_by(Note.is_pinned.desc(), Note.created_at.desc()).all()
 
