@@ -1,12 +1,12 @@
-# iBanq Notes: Full-Stack Application
+# iBanq Notes: Full-Stack Application (Take Home Project)
 
-A robust web application for managing notes, built with a React frontend, FastAPI backend, and PostgreSQL database.
+A web app for managing notes, built with a React frontend, FastAPI backend, and PostgreSQL database.
 
 ## Features
 * **Full CRUD Support**: Create, read, update (edit), and delete notes.
 * **Pinned Notes**: Supports pinning important notes to keep them at the top of the list.
 * **Soft Delete**: Uses an `is_deleted` flag in the database for safe data handling.
-* **Search**: Real-time client-side filtering by note title.
+* **Search**: Client-side filtering by note title.
 * **Automated Setup**: Fully containerized with Docker and Docker Compose.
 
 ## Prerequisites
