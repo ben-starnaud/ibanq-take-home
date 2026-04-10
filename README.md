@@ -45,6 +45,13 @@ A web app for managing notes, built with a React frontend, FastAPI backend, and 
 * **Workspace View**: Clicking "New Note" or "Edit" shifts the layout to a sidebar list and a main editor area.
 * **Persistence**: Deleting or saving notes updates the PostgreSQL database and refreshes the UI state.
 
+## Screenshots
+### Home Screen
+<img src="./docs/HomeScreen.png" alt="iBanq home screen" width="1100" />
+
+### CRUD API (Swagger)
+<img src="./docs/CRUD.png" alt="iBanq CRUD API endpoints in Swagger" width="1100" />
+
 ## Running Tests
 To run the automated backend test suite:
 ```bash
